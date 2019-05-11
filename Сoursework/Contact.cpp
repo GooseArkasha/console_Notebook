@@ -1,8 +1,8 @@
+#include "pch.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include "Contact.h"
-#include "pch.h"
 using namespace std;
 
 Contact::Contact(const Contact &obj)

@@ -1,25 +1,25 @@
+#include "pch.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include "Contact.h"
 #include <fstream>
-#include "pch.h"
 #include "Functions.h"
 using namespace std;
 
 //******************Функции МЕНЮ************************************************************
 int menu1()
 {
-M1:	cout << "***************************************" << endl;
-	cout << "МЕНЮ 1:" << endl;
+	cout << "********************************************************************************" << endl;
+	cout << "МЕНЮ 1:";
 	cout << "\tЕсли хотите рботать с АДРЕСНОЙ КНИГОЙ - введите 1" << endl;
 	cout << "\tЕсли хотите работать с СОБЫТИЯМИ - введите 2" << endl;
-	cout << "\t Если хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
-	cout << "***************************************" << endl;
-	int i = input_int();
+	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "********************************************************************************" << endl;
+M1:	int i = input_int();
 	if (i < 0 || i > 2)
 	{
-		cout << "Режим выбран некоректно! Повторите попытку ввода." << endl;
+		cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
 		goto M1;
 	}
 	return i;
@@ -178,7 +178,7 @@ void EditContact(vector <Contact> &vec)
 
 void SaveContacts(vector <Contact> &vec, string FileName)
 {
-	fstream file;
+	ifstream file;
 	file.open(FileName, fstream::in);
 	if (!file.is_open())
 	{
@@ -187,9 +187,9 @@ void SaveContacts(vector <Contact> &vec, string FileName)
 	else
 	{
 		for (int i = 0; i < vec.size(); i++)
-			file << vec[i];
+			file >> vec[i];
 	}
-	file.close;
+	file.close();
 }
 
 void DeliteAllContacts(vector <Contact> &vec)

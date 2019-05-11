@@ -1,8 +1,8 @@
-﻿#include <iostream>
+﻿#include "pch.h"
+#include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
-#include "pch.h"
 #include "Contact.h"
 #include <Windows.h>
 #include "Functions.h"
@@ -10,50 +10,53 @@ using namespace std;
 
 int main()
 {
-	fstream f1;
-	string titel = "Contacts.txt";
-	f1.open(titel, fstream::in | fstream::out);
-	if (!f1.is_open())
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	//Первое меню
+	int mode = menu1();
+	
+	if(mode == 1)//Работа со списком	КОНТАКТОВ
 	{
-		cout << "Ошибка открытия файла!" << endl;
+		fstream f1;
+		string titel = "contacts.txt";
+		f1.open(titel, fstream::in | fstream::out || fstream::app);
+		if (!f1.is_open())
+		{
+			cout << "Ошибка открытия файла!" << endl;
+			system("pause");
+			return 1;
+		}
+		else
+		{
+			cout << "Файл Contacts.txt открыт." << endl;
+			vector<Contact> vec;
+			Contact temp;
+
+			//Копирование данных из файла в вектор объектов класса
+			while (!f1.eof())
+			{
+				f1 >> temp;
+				vec.push_back(temp);
+			}
+			f1.close();
+			OutputContacts(vec);
+		}
 	}
-	else
+
+
+	if (mode == 2)	//Работа со списком СОБЫТЕЙ
 	{
-		cout << "Файл Contacts.txt открыт." << endl;
-		vector<Contact> vec;
-		Contact temp;
-
-		//Перенесение данных из файла в вектор объектов класса
-		while (!f1.eof())
-		{
-			f1 >> temp;
-			vec.push_back(temp);
-		}
-		f1.close();
-
-		OutputContacts(vec);
-
-		//Первое меню
-		int mode = menu1();
-		switch (mode)
-		{
-		case 1: //Работа со списком	КОНТАКТОВ
-		{
-			break;
-		}
-		case 2:	//Работа со списком СОБЫТЕЙ
-		{
-			break;
-		}
-		case 0: //Завершение работы
-		{
-			return 0;
-			break;
-		}
-		default:
-			break;
-		}
-		
+		cout << "Работа со списком СОБЫТИЙ" << endl;
 	}
+
+
+	if (mode == 0) //Завершение работы
+	{
+		cout << "Звершение работы" << endl;
+		system("pause");
+		return 0;
+	}
+
+	system("pause");
 	return 0;
 }

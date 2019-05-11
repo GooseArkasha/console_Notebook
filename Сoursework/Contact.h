@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "pch.h"
 using namespace std;
 
 class Contact
