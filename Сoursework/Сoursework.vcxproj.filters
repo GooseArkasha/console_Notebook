@@ -24,6 +24,9 @@
     <ClInclude Include="Event.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -38,10 +41,7 @@
     <ClCompile Include="Event.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ContactsFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="EventsFunctions.cpp">
+    <ClCompile Include="Functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

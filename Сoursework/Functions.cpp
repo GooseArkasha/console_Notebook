@@ -3,20 +3,52 @@
 #include <vector>
 #include "Contact.h"
 #include <fstream>
+#include "pch.h"
+#include "Functions.h"
 using namespace std;
 
-void OutputContacts(vector <Contact> &vec, int size);
-void SortName(vector <Contact> &vec, int size);
-void SortSurname(vector <Contact> &vec, int size);
-void EditContact(vector <Contact> &vec, int size);
-int SearchContact(vector <Contact> &vec, int size);	//Возвращает индекс найденого элемента
-void SaveContacts(vector <Contact> &vec, string FileName, int size);
+//******************Функции МЕНЮ************************************************************
+int menu1()
+{
+M1:	cout << "***************************************" << endl;
+	cout << "МЕНЮ 1:" << endl;
+	cout << "\tЕсли хотите рботать с АДРЕСНОЙ КНИГОЙ - введите 1" << endl;
+	cout << "\tЕсли хотите работать с СОБЫТИЯМИ - введите 2" << endl;
+	cout << "\t Если хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "***************************************" << endl;
+	int i = input_int();
+	if (i < 0 || i > 2)
+	{
+		cout << "Режим выбран некоректно! Повторите попытку ввода." << endl;
+		goto M1;
+	}
+	return i;
+}
 
 
-void OutputContacts(vector <Contact> &vec, int size)
+
+//******************Функции для работы со списком КОНТАКТОВ*********************************
+void AddContact(vector <Contact> &vec)
+{
+	Contact temp;
+	cout << "Введите данные записи, которую хотите добавить" << endl;
+	temp.input();
+	vec.push_back(temp);
+}
+
+void DeliteContact(vector <Contact> &vec)
+{
+	cout << "Поиск контакта для удаления";
+	int i = SearchContact(vec);
+	vector<Contact>::iterator p = vec.begin();
+	p += i;
+	vec.erase(p);
+}
+
+void OutputContacts(vector <Contact> &vec)
 {
 	cout << "Данные адресной книги:" << endl;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
 		cout << i + 1 << "контакт:" << endl;
 		vec[i].output();
@@ -24,14 +56,14 @@ void OutputContacts(vector <Contact> &vec, int size)
 	}
 }
 
-void SortName(vector <Contact> &vec, int size)
+void SortName(vector <Contact> &vec)
 {
 	Contact tempCont;
 	string temp1, temp2;
-	for (int i = 0; i < size - 1; i++)
+	for (int i = 0; i < vec.size() - 1; i++)
 	{
 		temp1 = vec[i].GetName();
-		for (int j = i + 1; j < size; j++)
+		for (int j = i + 1; j < vec.size(); j++)
 		{
 			temp2 = vec[j].GetName();
 			if (temp2 < temp1)
@@ -44,14 +76,14 @@ void SortName(vector <Contact> &vec, int size)
 	}
 }
 
-void SortSurname(vector <Contact> &vec, int size)
+void SortSurname(vector <Contact> &vec)
 {
 	Contact tempCont;
 	string temp1, temp2;
-	for (int i = 0; i < size - 1; i++)
+	for (int i = 0; i < vec.size() - 1; i++)
 	{
 		temp1 = vec[i].GetSurname();
-		for (int j = i + 1; j < size; j++)
+		for (int j = i + 1; j < vec.size(); j++)
 		{
 			temp2 = vec[j].GetSurname();
 			if (temp2 < temp1)
@@ -64,7 +96,7 @@ void SortSurname(vector <Contact> &vec, int size)
 	}
 }
 
-int SearchContact(vector <Contact> &vec, int size)
+int SearchContact(vector <Contact> &vec)
 {
 	string str1, str2, temp1, temp2;
 	do
@@ -74,7 +106,7 @@ int SearchContact(vector <Contact> &vec, int size)
 		getline(cin, str1);
 		cout << "Фамилию: ";
 		getline(cin, str2);
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < vec.size(); i++)
 		{
 			temp1 = vec[i].GetName();
 			temp2 = vec[i].GetSurname();
@@ -85,9 +117,10 @@ int SearchContact(vector <Contact> &vec, int size)
 	} while (true);
 }
 
-void EditContact(vector <Contact> &vec, int size)
+void EditContact(vector <Contact> &vec)
 {
-	int i = SearchContact(vec, size);
+	cout << "Поиск контакта для изменения" << endl;
+	int i = SearchContact(vec);
 	string temp;
 	int k;
 	do
@@ -143,7 +176,7 @@ void EditContact(vector <Contact> &vec, int size)
 	} while (k);
 }
 
-void SaveContacts(vector <Contact> &vec, string FileName, int size)
+void SaveContacts(vector <Contact> &vec, string FileName)
 {
 	fstream file;
 	file.open(FileName, fstream::in);
@@ -153,8 +186,38 @@ void SaveContacts(vector <Contact> &vec, string FileName, int size)
 	}
 	else
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < vec.size(); i++)
 			file << vec[i];
 	}
 	file.close;
+}
+
+void DeliteAllContacts(vector <Contact> &vec)
+{
+	cout << "Удаление всех записей" << endl;
+	vec.clear();
+}
+
+
+
+//******************Функции для работы со списком СОБЫТЕЙ***********************************
+
+
+//******************Остальные функции*******************************************************
+int input_int()
+{
+	string temp;
+	getline(cin, temp);
+	if (temp.size() > 2)
+		return -1;
+	int i = 0, k = 0;
+	while (temp[k] != '\0')
+	{
+		if (temp[k] < '0' || temp[k] > '9')
+			return -1;
+		i = (i + temp[k] - 48) * 10;
+		k++;
+	}
+	i /= 10;
+	return i;
 }
