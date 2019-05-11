@@ -16,15 +16,58 @@ int menu1()
 	cout << "\tЕсли хотите работать с СОБЫТИЯМИ - введите 2" << endl;
 	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
 	cout << "********************************************************************************" << endl;
-M1:	int i = input_int();
-	if (i < 0 || i > 2)
+	int i;
+	do
 	{
-		cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
-		goto M1;
-	}
+		i = input_int();
+		if (i < 0 || i > 2)
+			cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 0 || i > 2);
 	return i;
 }
 
+
+int menu2()
+{
+	cout << "********************************************************************************" << endl;
+	cout << "МЕНЮ 2:";
+	cout << "\tЕсли хотите ДОБАВИТЬ КОНТАКТ - введите 1" << endl;
+	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "********************************************************************************" << endl;
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 0 || i > 1)
+			cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 0 || i > 1);
+	return i;
+}
+
+
+int menu3()
+{
+	cout << "********************************************************************************" << endl;
+	cout << "МЕНЮ 3:";
+	cout << "\tЕсли хотите ДОБАВИТЬ КОНТАКТ - введите 1" << endl;
+	cout << "\tЕсли хотите УДАЛИТЬ КОНТАКТ - введите 2" << endl;
+	cout << "\tЕсли хотите ВЫВЕСТИ ТЕКУЩИЙ СПИСОК - введите 3" << endl;
+	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по ИМЕНАМ - введите 4" << endl;
+	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по ФАМИЛИЯМ - введите 5" << endl;
+	cout << "\tЕсли хотите РЕДАКТИРОВАТЬ один из контактов - введите 6" << endl;
+	cout << "\tЕсли хотите УДАЛИТЬ все записи списка - введите 7" << endl;
+	cout << "\tЕсли хотите СОХРАНИТЬ внесенные изменения - введите 8" << endl;
+	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "********************************************************************************" << endl;
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 0 || i > 8)
+			cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 0 || i > 8);
+	return i;
+}
 
 
 //******************Функции для работы со списком КОНТАКТОВ*********************************
@@ -36,7 +79,7 @@ void AddContact(vector <Contact> &vec)
 	vec.push_back(temp);
 }
 
-void DeliteContact(vector <Contact> &vec)
+void DeleteContact(vector <Contact> &vec)
 {
 	cout << "Поиск контакта для удаления";
 	int i = SearchContact(vec);
@@ -134,6 +177,7 @@ void EditContact(vector <Contact> &vec)
 		cout << "Введите 0, если хотите закончить редактирование." << endl;
 		cin >> k;
 		//Добавить проверку переменной выбора режима
+		cin.ignore(32767, '\n');
 		switch (k)
 		{
 		case 1:
@@ -178,8 +222,8 @@ void EditContact(vector <Contact> &vec)
 
 void SaveContacts(vector <Contact> &vec, string FileName)
 {
-	ifstream file;
-	file.open(FileName, fstream::in);
+	ofstream file;
+	file.open(FileName);
 	if (!file.is_open())
 	{
 		cout << "Ошибка открытия файла! Данные не будут сохранены." << endl;
@@ -187,12 +231,12 @@ void SaveContacts(vector <Contact> &vec, string FileName)
 	else
 	{
 		for (int i = 0; i < vec.size(); i++)
-			file >> vec[i];
+			file << vec[i];
 	}
 	file.close();
 }
 
-void DeliteAllContacts(vector <Contact> &vec)
+void DeleteAllContacts(vector <Contact> &vec)
 {
 	cout << "Удаление всех записей" << endl;
 	vec.clear();

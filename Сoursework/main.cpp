@@ -13,34 +13,101 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	//Первое меню
-	int mode = menu1();
+M1:	int mode = menu1();
 	
 	if(mode == 1)//Работа со списком	КОНТАКТОВ
 	{
-		fstream f1;
-		string titel = "contacts.txt";
-		f1.open(titel, fstream::in | fstream::out || fstream::app);
-		if (!f1.is_open())
+		string titel = "Contacts.txt";
+
+		ofstream fo;
+		fo.open(titel, ostream::app);
+		if (!fo.is_open())
 		{
 			cout << "Ошибка открытия файла!" << endl;
+			fo.close();
 			system("pause");
 			return 1;
 		}
 		else
 		{
-			cout << "Файл Contacts.txt открыт." << endl;
-			vector<Contact> vec;
-			Contact temp;
+			cout << "Файл успешно открыт или создан!" << endl;
+			fo.close();
+		}
 
-			//Копирование данных из файла в вектор объектов класса
-			while (!f1.eof())
+		//Создание копии файла в векторе
+		ifstream fi;
+		vector<Contact> vec;
+		fi.open(titel);
+		Contact temp;
+		if (!fi.is_open())
+		{
+			cout << "Ошибка открытия файла для чтения!" << endl;
+			fi.close();
+			system("pause");
+			return 1;
+		}
+		else
+		{
+			while (!fi.eof())
 			{
-				f1 >> temp;
+				fi >> temp;
 				vec.push_back(temp);
 			}
-			f1.close();
-			OutputContacts(vec);
+			fi.close();
 		}
+
+	M3:	if (vec.size() == 0)
+		{
+		M2:	mode = menu2();
+			if (mode == 1)
+			{
+				AddContact(vec);
+				goto M3;
+			}
+			if (mode == 0) //Завершение работы
+			{
+				cout << "Звершение работы" << endl;
+				system("pause");
+				return 0;
+			}
+		}
+		
+		mode = menu3();
+		if (mode == 1)
+			AddContact(vec);
+
+		if (mode == 2)
+			DeleteContact(vec);
+
+		if (mode == 3)
+			OutputContacts(vec);
+
+		if (mode == 4)
+			SortName(vec);
+
+		if (mode == 5)
+			SortSurname(vec);
+
+		if (mode == 6)
+			EditContact(vec);
+
+		if (mode == 7)
+		{
+			DeleteAllContacts(vec);
+			goto M2;
+		}
+
+		if (mode == 8)
+			SaveContacts(vec, titel);
+
+		if (mode == 0) //Завершение работы
+		{
+			cout << "Звершение работы" << endl;
+			system("pause");
+			return 0;
+		}
+
+		goto M3;
 	}
 
 
