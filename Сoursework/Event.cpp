@@ -54,7 +54,7 @@ void Event::SetDescription(string email)
 
 void Event::input()
 {
-	cout << "***************************************" << endl;
+	cout << "********************************************************************************" << endl;
 	cout << "\tНазвание: ";
 	getline(cin, name);
 	cout << "\tДата и время: ";
@@ -63,7 +63,7 @@ void Event::input()
 	getline(cin, address);
 	cout << "\tОписание: ";
 	getline(cin, description);
-	cout << "***************************************" << endl;
+	cout << "********************************************************************************" << endl;
 }
 
 void Event::output()

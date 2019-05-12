@@ -48,9 +48,13 @@ M1:	int mode = menu1();
 		}
 		else
 		{
-			while (!fi.eof())
+			while (true)
 			{
 				fi >> temp;
+				if (fi.eof())
+				{
+					break;
+				}
 				vec.push_back(temp);
 			}
 			fi.close();
@@ -64,6 +68,13 @@ M1:	int mode = menu1();
 				AddContact(vec);
 				goto M3;
 			}
+			if (mode == 2)
+			{
+				SaveContacts(vec, titel);
+				goto M3;
+			}
+			if (mode == 3)
+				goto M1;
 			if (mode == 0) //Завершение работы
 			{
 				cout << "Звершение работы" << endl;
@@ -99,6 +110,9 @@ M1:	int mode = menu1();
 
 		if (mode == 8)
 			SaveContacts(vec, titel);
+
+		if (mode == 9)
+			goto M1;
 
 		if (mode == 0) //Завершение работы
 		{
@@ -145,9 +159,13 @@ M1:	int mode = menu1();
 		}
 		else
 		{
-			while (!fi.eof())
+			while (true)
 			{
 				fi >> temp;
+				if (fi.eof())
+				{
+					break;
+				}
 				vec.push_back(temp);
 			}
 			fi.close();
@@ -161,6 +179,13 @@ M1:	int mode = menu1();
 			AddEvent(vec);
 			goto M5;
 		}
+		if (mode == 8)
+		{
+			SaveEvents(vec, titel);
+			goto M5;
+		}
+		if (mode == 3)
+			goto M1;
 		if (mode == 0) //Завершение работы
 		{
 			cout << "Звершение работы" << endl;
@@ -196,6 +221,9 @@ M1:	int mode = menu1();
 
 		if (mode == 8)
 			SaveEvents(vec, titel);
+
+		if (mode == 9)
+			goto M1;
 
 		if (mode == 0) //Завершение работы
 		{
