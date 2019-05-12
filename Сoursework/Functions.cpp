@@ -213,6 +213,8 @@ void EditContact(vector <Contact> &vec)
 {
 	cout << "Поиск контакта для изменения" << endl;
 	int i = SearchContact(vec);
+	cout << "Найденый контакт:" << endl;
+	vec[i].output();
 	string temp;
 	int k;
 	do
@@ -236,6 +238,7 @@ void EditContact(vector <Contact> &vec)
 		{
 		case 1:
 		{
+			cout << "Текущая запись: " << vec[i].GetName() << endl;
 			cout << "Введите новое имя: ";
 			getline(cin, temp);
 			vec[i].SetName(temp);
@@ -243,6 +246,7 @@ void EditContact(vector <Contact> &vec)
 		}
 		case 2:
 		{
+			cout << "Текущая запись: " << vec[i].GetSurname() << endl;
 			cout << "Введите новую фамилию: ";
 			getline(cin, temp);
 			vec[i].SetSurname(temp);
@@ -250,6 +254,7 @@ void EditContact(vector <Contact> &vec)
 		}
 		case 3:
 		{
+			cout << "Текущая запись: " << vec[i].GetPhone() << endl;
 			cout << "Введите новый телефон: ";
 			getline(cin, temp);
 			vec[i].SetPhone(temp);
@@ -257,6 +262,7 @@ void EditContact(vector <Contact> &vec)
 		}
 		case 4:
 		{
+			cout << "Текущая запись: " << vec[i].GetEmail() << endl;
 			cout << "Введите новый email: ";
 			getline(cin, temp);
 			vec[i].SetEmail(temp);
@@ -264,6 +270,7 @@ void EditContact(vector <Contact> &vec)
 		}
 		case 5:
 		{
+			cout << "Текущая запись: " << vec[i].GetNote() << endl;
 			cout << "Введите новые Заметки: ";
 			getline(cin, temp);
 			vec[i].SetNote(temp);
@@ -371,6 +378,8 @@ void EditEvent(vector <Event> &vec)
 {
 	cout << "Поиск события для изменения" << endl;
 	int i = SearchEvent(vec);
+	cout << "Найденый контакт:" << endl;
+	vec[i].output();
 	string temp;
 	int k;
 	do
@@ -393,6 +402,7 @@ void EditEvent(vector <Event> &vec)
 		{
 		case 1:
 		{
+			cout << "Текущая запись:" << vec[i].GetName() << endl;
 			cout << "Введите новое название: ";
 			getline(cin, temp);
 			vec[i].SetName(temp);
@@ -400,6 +410,7 @@ void EditEvent(vector <Event> &vec)
 		}
 		case 2:
 		{
+			cout << "Текущая запись:" << vec[i].GetTad() << endl;
 			cout << "Введите новую дату и время: ";
 			getline(cin, temp);
 			vec[i].SetTad(temp);
@@ -407,6 +418,7 @@ void EditEvent(vector <Event> &vec)
 		}
 		case 3:
 		{
+			cout << "Текущая запись:" << vec[i].GetAddress() << endl;
 			cout << "Введите новый адрес: ";
 			getline(cin, temp);
 			vec[i].SetAddress(temp);
@@ -414,6 +426,7 @@ void EditEvent(vector <Event> &vec)
 		}
 		case 4:
 		{
+			cout << "Текущая запись:" << vec[i].GetDescription() << endl;
 			cout << "Введите новый описание: ";
 			getline(cin, temp);
 			vec[i].SetDescription(temp);
