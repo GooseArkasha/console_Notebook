@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Contact.h"
+#include "Event.h"
 #include <fstream>
 #include "Functions.h"
 using namespace std;
@@ -55,6 +56,48 @@ int menu3()
 	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по ИМЕНАМ - введите 4" << endl;
 	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по ФАМИЛИЯМ - введите 5" << endl;
 	cout << "\tЕсли хотите РЕДАКТИРОВАТЬ один из контактов - введите 6" << endl;
+	cout << "\tЕсли хотите УДАЛИТЬ все записи списка - введите 7" << endl;
+	cout << "\tЕсли хотите СОХРАНИТЬ внесенные изменения - введите 8" << endl;
+	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "********************************************************************************" << endl;
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 0 || i > 8)
+			cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 0 || i > 8);
+	return i;
+}
+
+int menu4()
+{
+	cout << "********************************************************************************" << endl;
+	cout << "МЕНЮ 4:";
+	cout << "\tЕсли хотите ДОБАВИТЬ СОБЫТИЕ - введите 1" << endl;
+	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
+	cout << "********************************************************************************" << endl;
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 0 || i > 1)
+			cout << "Режим выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 0 || i > 1);
+	return i;
+}
+
+
+int menu5()
+{
+	cout << "********************************************************************************" << endl;
+	cout << "МЕНЮ 5:";
+	cout << "\tЕсли хотите ДОБАВИТЬ СОБЫТИЕ - введите 1" << endl;
+	cout << "\tЕсли хотите УДАЛИТЬ СОБЫТИЕ - введите 2" << endl;
+	cout << "\tЕсли хотите ВЫВЕСТИ ТЕКУЩИЙ СПИСОК - введите 3" << endl;
+	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по НАЗВАНИЯМ - введите 4" << endl;
+	cout << "\tЕсли хотите ОТСОРТИРОВАТЬ список по ДАТАМ И ВРЕМЕНИ - введите 5" << endl;
+	cout << "\tЕсли хотите РЕДАКТИРОВАТЬ одно из событий - введите 6" << endl;
 	cout << "\tЕсли хотите УДАЛИТЬ все записи списка - введите 7" << endl;
 	cout << "\tЕсли хотите СОХРАНИТЬ внесенные изменения - введите 8" << endl;
 	cout << "\tЕсли хотите ЗАВЕРШИТЬ работу с программий - введите 0" << endl;
@@ -245,6 +288,168 @@ void DeleteAllContacts(vector <Contact> &vec)
 
 
 //******************Функции для работы со списком СОБЫТЕЙ***********************************
+void AddEvent(vector <Event> &vec)
+{
+	Event temp;
+	cout << "Введите данные записи, которую хотите добавить" << endl;
+	temp.input();
+	vec.push_back(temp);
+}
+
+void DeleteEvent(vector <Event> &vec)
+{
+	cout << "Поиск события для удаления";
+	int i = SearchEvent(vec);
+	vector<Event>::iterator p = vec.begin();
+	p += i;
+	vec.erase(p);
+}
+
+void OutputEvents(vector <Event> &vec)
+{
+	cout << "Данные списка событий:" << endl;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		cout << i + 1 << "событие:" << endl;
+		vec[i].output();
+		cout << endl;
+	}
+}
+
+void SortName(vector <Event> &vec)
+{
+	Event tempEv;
+	string temp1, temp2;
+	for (int i = 0; i < vec.size() - 1; i++)
+	{
+		temp1 = vec[i].GetName();
+		for (int j = i + 1; j < vec.size(); j++)
+		{
+			temp2 = vec[j].GetName();
+			if (temp2 < temp1)
+			{
+				tempEv = vec[i];
+				vec[i] = vec[j];
+				vec[j] = tempEv;
+			}
+		}
+	}
+}
+
+void SortTad(vector <Event> &vec)
+{
+	Event tempEv;
+	string temp1, temp2;
+	for (int i = 0; i < vec.size() - 1; i++)
+	{
+		temp1 = vec[i].GetTad();
+		for (int j = i + 1; j < vec.size(); j++)
+		{
+			temp2 = vec[j].GetTad();
+			if (temp2 < temp1)
+			{
+				tempEv = vec[i];
+				vec[i] = vec[j];
+				vec[j] = tempEv;
+			}
+		}
+	}
+}
+
+void EditEvent(vector <Event> &vec)
+{
+	cout << "Поиск события для изменения" << endl;
+	int i = SearchEvent(vec);
+	string temp;
+	int k;
+	do
+	{
+		cout << "Если вы хотите изменить" << endl;
+		cout << "\tНазвание - введите 1" << endl;
+		cout << "\tДату и время - введите 2" << endl;
+		cout << "\tАдрес - введите 3" << endl;
+		cout << "\tОписание - введите 4" << endl;
+		cout << "Введите 0, если хотите закончить редактирование." << endl;
+		cin >> k;
+		//Добавить проверку переменной выбора режима
+		cin.ignore(32767, '\n');
+		switch (k)
+		{
+		case 1:
+		{
+			cout << "Введите новое название: ";
+			getline(cin, temp);
+			vec[i].SetName(temp);
+			break;
+		}
+		case 2:
+		{
+			cout << "Введите новую дату и время: ";
+			getline(cin, temp);
+			vec[i].SetTad(temp);
+			break;
+		}
+		case 3:
+		{
+			cout << "Введите новый адрес: ";
+			getline(cin, temp);
+			vec[i].SetAddress(temp);
+			break;
+		}
+		case 4:
+		{
+			cout << "Введите новый описание: ";
+			getline(cin, temp);
+			vec[i].SetDescription(temp);
+			break;
+		}
+		default: break;
+		}
+	} while (k);
+}
+
+int SearchEvent(vector <Event> &vec)
+{
+	string str1, str2, temp1, temp2;
+	do
+	{
+		cout << "Для поиска события введите" << endl;
+		cout << "Название: ";
+		getline(cin, str1);
+		cout << "Дата и время: ";
+		getline(cin, str2);
+		for (int i = 0; i < vec.size(); i++)
+		{
+			temp1 = vec[i].GetName();
+			temp2 = vec[i].GetTad();
+			if (str1 == temp1 && str2 == temp2)
+				return i;	//Функция закончит работу после нахождения совпадения
+		}
+		cout << "Данная запись не найдена. Повторите воод еще раз." << endl;
+	} while (true);
+}
+
+void SaveEvents(vector <Event> &vec, string FileName)
+{
+	ofstream file;
+	file.open(FileName);
+	if (!file.is_open())
+	{
+		cout << "Ошибка открытия файла! Данные не будут сохранены." << endl;
+	}
+	else
+	{
+		for (int i = 0; i < vec.size(); i++)
+			file << vec[i];
+	}
+	file.close();
+}
+
+void DeleteAllEvents(vector <Event> &vec)
+{
+	cout << "Удаление всех записей" << endl;
+	vec.clear();
+}
 
 
 //******************Остальные функции*******************************************************

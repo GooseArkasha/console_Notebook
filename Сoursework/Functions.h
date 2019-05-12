@@ -3,12 +3,15 @@
 #include <string>
 #include <vector>
 #include "Contact.h"
+#include "Event.h"
 using namespace std;
 
 //******************Прототипы функций МЕНЮ**************************************************
 int menu1();
 int menu2();
 int menu3();
+int menu4();
+int menu5();
 
 //******************Прототипы функций для работы со списком КОНТАКТОВ***********************
 void AddContact(vector <Contact> &vec);	//Функция добавляет в конец вектора новую запись
@@ -24,7 +27,15 @@ void DeleteAllContacts(vector <Contact> &vec);	//Функция удаляет все записи, хра
 
 
 //******************Прототипы функций для работы со списком СОБЫТИЙ*************************
-
+void AddEvent(vector <Event> &vec);	//Функция добавляет в конец вектора новую запись
+void DeleteEvent(vector <Event> &vec);	//Функция удаляет заданную пользователем запись
+void OutputEvents(vector <Event> &vec);	//Функция выводит текущий список записей
+void SortName(vector <Event> &vec);	//Функция сортирует список по названиям в алфавитном порядке
+void SortTad(vector <Event> &vec);	//Функция сортирует список по датам
+void EditEvent(vector <Event> &vec);	//Функция редактирует заданную пользователем запись
+int SearchEvent(vector <Event> &vec);	//Функция производит поиск сибытия, возвращает индекс найденого элемента
+void SaveEvents(vector <Event> &vec, string FileName);	//Функция сохраняет текущий список в файл
+void DeleteAllEvents(vector <Event> &vec);	//Функция удаляет все записи, хранящиесе я списке
 
 
 
