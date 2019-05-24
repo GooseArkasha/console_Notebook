@@ -130,8 +130,19 @@ void AddContact(vector <Contact> &vec)
 
 void DeleteContact(vector <Contact> &vec)
 {
-	cout << "Поиск контакта для удаления";
-	int i = SearchContact(vec);
+	cout << "Поиск контакта для удаления:" << endl;
+	OutputContacts(vec);
+	cout << "Введите номер контакта, который хотите удалить: ";
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 1 || i > vec.size())
+			cout << "Контакт выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 1 || i > vec.size());
+	i--;
+	cout << "Выбраный контакт:" << endl;
+	vec[i].output();
 	vector<Contact>::iterator p = vec.begin();
 	p += i;
 	vec.erase(p);
@@ -142,7 +153,7 @@ void OutputContacts(vector <Contact> &vec)
 	cout << "Данные адресной книги:" << endl;
 	for (int i = 0; i < vec.size(); i++)
 	{
-		cout << i + 1 << "контакт:" << endl;
+		cout << i + 1 << " контакт:" << endl;
 		vec[i].output();
 		cout << endl;
 	}
@@ -188,32 +199,21 @@ void SortSurname(vector <Contact> &vec)
 	}
 }
 
-int SearchContact(vector <Contact> &vec)
-{
-	string str1, str2, temp1, temp2;
-	do
-	{
-		cout << "Для поиска контакта введите" << endl;
-		cout << "Имя: ";
-		getline(cin, str1);
-		cout << "Фамилию: ";
-		getline(cin, str2);
-		for (int i = 0; i < vec.size(); i++)
-		{
-			temp1 = vec[i].GetName();
-			temp2 = vec[i].GetSurname();
-			if (str1 == temp1 && str2 == temp2)
-				return i;	//Функция закончит работу после нахождения совпадения
-		}
-		cout << "Данная запись не найдена. Повторите воод еще раз." << endl;
-	} while (true);
-}
 
 void EditContact(vector <Contact> &vec)
 {
-	cout << "Поиск контакта для изменения" << endl;
-	int i = SearchContact(vec);
-	cout << "Найденый контакт:" << endl;
+	cout << "Поиск контакта для изменения:" << endl;
+	OutputContacts(vec);
+	cout << "Введите номер контакта, который хотите изменить: ";
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 1 || i > vec.size())
+			cout << "Контакт выбран некорректно! Повторите попытку ввода." << endl;
+	} while (i < 1 || i > vec.size());
+	i--;
+	cout << "Выбраный контакт:" << endl;
 	vec[i].output();
 	string temp;
 	int k;
@@ -316,8 +316,19 @@ void AddEvent(vector <Event> &vec)
 
 void DeleteEvent(vector <Event> &vec)
 {
-	cout << "Поиск события для удаления";
-	int i = SearchEvent(vec);
+	cout << "Поиск события для удаления" << endl;
+	OutputEvents(vec);
+	cout << "Введите номер события, который хотите изменить: ";
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 1 || i > vec.size())
+			cout << "Событие выбрано некорректно! Повторите попытку ввода." << endl;
+	} while (i < 1 || i > vec.size());
+	i--;
+	cout << "Найдеое событие:" << endl;
+	vec[i].output();
 	vector<Event>::iterator p = vec.begin();
 	p += i;
 	vec.erase(p);
@@ -377,8 +388,17 @@ void SortTad(vector <Event> &vec)
 void EditEvent(vector <Event> &vec)
 {
 	cout << "Поиск события для изменения" << endl;
-	int i = SearchEvent(vec);
-	cout << "Найденый контакт:" << endl;
+	OutputEvents(vec);
+	cout << "Введите номер события, который хотите изменить: ";
+	int i;
+	do
+	{
+		i = input_int();
+		if (i < 1 || i > vec.size())
+			cout << "Событие выбрано некорректно! Повторите попытку ввода." << endl;
+	} while (i < 1 || i > vec.size());
+	i--;
+	cout << "Найдеое событие:" << endl;
 	vec[i].output();
 	string temp;
 	int k;

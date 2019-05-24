@@ -20,7 +20,6 @@ void OutputContacts(vector <Contact> &vec);	//Функция выводит текущий список зап
 void SortName(vector <Contact> &vec);	//Функция сортирует список по именам в алфавитном порядке
 void SortSurname(vector <Contact> &vec);	//Функция сортирует список по фамилиям в алфавитном порядке
 void EditContact(vector <Contact> &vec);	//Функция редактирует заданный пользователем контакт
-int SearchContact(vector <Contact> &vec);	//Функция производит поиск контакта, возвращает индекс найденого элемента
 void SaveContacts(vector <Contact> &vec, string FileName);	//Функция сохраняет текущий список в файл
 void DeleteAllContacts(vector <Contact> &vec);	//Функция удаляет все записи, хранящиесе я списке
 
