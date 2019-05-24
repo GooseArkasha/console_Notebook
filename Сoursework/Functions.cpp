@@ -305,7 +305,7 @@ void DeleteAllContacts(vector <Contact> &vec)
 
 
 
-//******************Функции для работы со списком СОБЫТЕЙ***********************************
+//******************Функции для работы со списком СОБЫТИЙ***********************************
 void AddEvent(vector <Event> &vec)
 {
 	Event temp;
@@ -457,26 +457,6 @@ void EditEvent(vector <Event> &vec)
 	} while (k);
 }
 
-int SearchEvent(vector <Event> &vec)
-{
-	string str1, str2, temp1, temp2;
-	do
-	{
-		cout << "Для поиска события введите" << endl;
-		cout << "Название: ";
-		getline(cin, str1);
-		cout << "Дата и время: ";
-		getline(cin, str2);
-		for (int i = 0; i < vec.size(); i++)
-		{
-			temp1 = vec[i].GetName();
-			temp2 = vec[i].GetTad();
-			if (str1 == temp1 && str2 == temp2)
-				return i;	//Функция закончит работу после нахождения совпадения
-		}
-		cout << "Данная запись не найдена. Повторите воод еще раз." << endl;
-	} while (true);
-}
 
 void SaveEvents(vector <Event> &vec, string FileName)
 {
